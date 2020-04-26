@@ -7,21 +7,29 @@ GridView {
 
     }
 
-    cellWidth: width / 4
-    cellHeight: height / 4
+    cellWidth: width / root.model.dimension
+    cellHeight: height / root.model.dimension
 
     delegate: Item {
         id: _cellItem
         width: root.cellWidth
         height: root.cellHeight
 
-        visible: index != 15
+        visible: display !== root.model.hiddenElementValue
 
         Tile {
             anchors.fill: _cellItem
             anchors.margins: 5
 
             displayText: display
+
+            MouseArea {
+                anchors.fill: parent
+
+                onClicked: {
+                    root.model.move(index);
+                }
+            }
         }
     }
 }
